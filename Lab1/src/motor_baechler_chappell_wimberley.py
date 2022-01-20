@@ -1,4 +1,13 @@
+'''
+@file      motor_baechler_chappell_wimberley.py
+@brief     sets up motor driver
+@details   instantiates timer channels within constructor and sets motor duty cycle
 
+@author    Jeremy Baechler
+@author    Kendall Chappell
+@author    Matthew Wimberley
+@date      20-Jan-2022
+'''
 
 class MotorDriver():
     
@@ -21,6 +30,10 @@ class MotorDriver():
             self.timchan2.pulse_width_percent(0)
 
 if __name__ == '__main__':
+    '''@brief   testing block
+    '''
+    import pyb
+    
     ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OUT_PP)
     IN1 = pyb.Pin (pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
     IN2 = pyb.Pin (pyb.Pin.board.PB5, pyb.Pin.OUT_PP)

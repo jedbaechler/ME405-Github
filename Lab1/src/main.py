@@ -4,7 +4,7 @@
 
 import pyb, utime
 
-ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.IN, pull=pyb.Pin.PULL_UP)
+ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OPEN_DRAIN, pull=pyb.Pin.PULL_UP)
 IN1 = pyb.Pin (pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
 IN2 = pyb.Pin (pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
 # pinB6 = pyb.Pin (pyb.Pin.board.PB6, pyb.Pin.IN)
@@ -26,7 +26,7 @@ t3ch2 = tim3.channel (2, pyb.Timer.PWM, pin=IN2)
 # t8ch2 = tim8.channel (2, pyb.Timer.ENC_AB, pin=pinC7)
 
 t3ch1.pulse_width_percent(0)
-t3ch2.pulse_width_percent(50)
+t3ch2.pulse_width_percent(100)
 
 # while True:
 #     print(tim8.counter())

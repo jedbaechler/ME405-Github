@@ -9,6 +9,8 @@
 @date      20-Jan-2022
 '''
 
+import pyb
+
 class MotorDriver():
     
     def __init__(self, en_pin, IN1, IN2, timer):
@@ -22,7 +24,7 @@ class MotorDriver():
     def set_duty(self, duty):
         self.ENA.high()
         if duty>0:
-#             print('inside function')
+            print('inside function')
             self.timchan1.pulse_width_percent(0)
             self.timchan2.pulse_width_percent(duty)
         elif duty<=0:
@@ -30,15 +32,10 @@ class MotorDriver():
             self.timchan2.pulse_width_percent(0)
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     '''@brief   testing block
     '''
-    import pyb
     
     ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OUT_PP)
-=======
-    ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OPEN_DRAIN, pull=pyb.Pin.PULL_UP)
->>>>>>> 0142c1007d3044d87c702879d2fbf33138833afe
     IN1 = pyb.Pin (pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
     IN2 = pyb.Pin (pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
     tim3 = pyb.Timer (3, freq=20000)

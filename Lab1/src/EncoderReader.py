@@ -11,7 +11,6 @@
 '''
 
 import pyb
-import motor_baechler_chappell_wimberley.py
 
 class EncoderReader:
 
@@ -65,14 +64,14 @@ class EncoderReader:
         
 if __name__ == "__main__":
     
-
+    import motor_baechler_chappell_wimberley as motor
+    
     ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OUT_PP)
     IN1 = pyb.Pin (pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
     IN2 = pyb.Pin (pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
     tim3 = pyb.Timer (3, freq=20000)
-    #motor = 
     moe = motor.MotorDriver(ENA, IN1, IN2, tim3)
-    moe.set_duty_cycle(50)
+    moe.set_duty(50)
 
     red = EncoderReader(1)
     red.read()

@@ -10,7 +10,7 @@
 @date      20-Jan-2022
 '''
 
-import pyb
+import pyb, utime
 
 class EncoderReader:
 
@@ -23,6 +23,9 @@ class EncoderReader:
     delta = 0
 
     def __init__(self, enc_number):
+        '''@brief      instantiates encoder objects
+           @details    we know the encoder pins, so user can just select encoders
+           '''
         
 
         
@@ -45,16 +48,19 @@ class EncoderReader:
         
         '''@brief       needs at least 2 values in each period
            @details     if >=2 values then delta can be accurately recorded
-                        saved and then subtracted from last known value '''
+                        saved and then subtracted from last known value
+           @returns     current encoder position'''
                         
 
         previous_position = self.current_position % 65535
-        self.delta = self.timer.counter() - prev_position
+        self.delta = self.timer.counter() - previous_position
         if self.delta < -65535/2:
             self.delta += 65535
         elif self.delta > 65535/2:
             self.delta -= 65535
         self.current_position += self.delta
+        
+        return self.current_position
         
     def zero(self):
         '''@brief       zeroes encoder position
@@ -63,10 +69,12 @@ class EncoderReader:
         current_position = 0
         
 if __name__ == "__main__":
+    '''@brief    testing block for encoder-motor pair
+    '''
     
     import motor_baechler_chappell_wimberley as motor
     
-    ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OUT_PP)
+    ENA = pyb.Pin (pyb.Pin.board.PA10, pyb.Pin.OPEN_DRAIN, pull=pyb.Pin.PULL_UP)
     IN1 = pyb.Pin (pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
     IN2 = pyb.Pin (pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
     tim3 = pyb.Timer (3, freq=20000)
@@ -74,4 +82,6 @@ if __name__ == "__main__":
     moe.set_duty(50)
 
     red = EncoderReader(1)
-    red.read()
+    while True: #testing code
+        print(red.read())
+        utime.sleep_ms(100)
